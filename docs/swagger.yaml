@@ -1,0 +1,216 @@
+host: 127.0.0.1:8080
+info:
+  contact:
+    email: 1308570778@qq.com
+    name: API jxc
+  title: Golang interview API
+  version: "1.0"
+paths:
+  /api/user/changegroup:
+    post:
+      consumes:
+      - application/json
+      description: 更改组别
+      parameters:
+      - description: Bearer 31a165baebe6dec616b1f8f3207b4273
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 发送的json数据只有groupname字段
+        in: body
+        name: groupname
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"msg":"更改成功","data":nil}'
+          schema:
+            type: string
+        "403":
+          description: '{"code":403,"msg":"已经处于面试状态不能更改组别","data":nil}'
+          schema:
+            type: string
+      summary: Changegroup
+      tags:
+      - operatechangegroup
+  /api/user/login:
+    post:
+      consumes:
+      - application/json
+      description: 用户登录
+      parameters:
+      - description: Bearer 31a1656dec616b1f8f3207b4273
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 学号
+        in: formData
+        name: username
+        required: true
+        type: string
+      - description: 用户密码
+        in: formData
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"msg":"登陆成功","data":token}'
+          schema:
+            type: string
+        "403":
+          description: '{"code":403,"msg":"信息错误","data":nil}'
+          schema:
+            type: string
+        "500":
+          description: '{"code":500,"msg":"授权失败","data":nil}'
+          schema:
+            type: string
+      summary: Login
+      tags:
+      - operateLogin
+  /api/user/register:
+    post:
+      consumes:
+      - application/json
+      description: 注册
+      parameters:
+      - description: 发送的json数据--学号
+        in: body
+        name: username
+        required: true
+        schema:
+          type: string
+      - description: 发送的json数据--密码
+        in: body
+        name: password
+        required: true
+        schema:
+          type: string
+      - description: 发送的json数据--邮箱
+        in: body
+        name: email
+        required: true
+        schema:
+          type: string
+      - description: 发送的json数据--真实姓名
+        in: body
+        name: real_name
+        required: true
+        schema:
+          type: string
+      - description: 发送的json数据--专业
+        in: body
+        name: major
+        required: true
+        schema:
+          type: string
+      - description: 验证码成功之后直接发1
+        in: body
+        name: status
+        required: true
+        schema:
+          type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"msg":"注册成功","data":nil}'
+          schema:
+            type: string
+        "403":
+          description: '{"code":403,"msg":"已经注测过不能重复注册","data":nil}'
+          schema:
+            type: string
+        "500":
+          description: '{"code":500,"msg":"服务器出错注册失败","data":nil}'
+          schema:
+            type: string
+      summary: register
+      tags:
+      - operateregister
+  /api/user/sighup:
+    post:
+      consumes:
+      - application/json
+      description: 报名
+      parameters:
+      - description: Bearer 31a165baebe6dec616b1f8f3207b4273
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 发送的json数据分别是 groupname和telephone
+        in: body
+        name: groupname
+        required: true
+        schema:
+          type: string
+      - description: 发送的json数据分别是 groupname和telephone
+        in: body
+        name: telephone
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"msg":"报名成功","data":nil}'
+          schema:
+            type: string
+        "403":
+          description: '{"code":403,"msg":"已经报过不能重复报名","data":nil}'
+          schema:
+            type: string
+        "500":
+          description: '{"code":500,"msg":"服务器出错报名失败","data":nil}'
+          schema:
+            type: string
+      summary: Sighup
+      tags:
+      - operatesighup
+  /api/user/verifycode:
+    post:
+      consumes:
+      - application/json
+      description: 验证验证码是否正确
+      parameters:
+      - description: 接收的json数据email
+        in: body
+        name: email
+        required: true
+        schema:
+          type: string
+      - description: 接收的json数据capture验证码
+        in: body
+        name: capture
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"msg":"验证成功","data":nil}'
+          schema:
+            type: string
+        "403":
+          description: '{"code":403,"msg":"验证失败","data":nil}'
+          schema:
+            type: string
+        "500":
+          description: '{"code":500,"msg":"服务器出错验证失败","data":nil}'
+          schema:
+            type: string
+      summary: verifycode
+      tags:
+      - operateverifycode
+swagger: "2.0"
